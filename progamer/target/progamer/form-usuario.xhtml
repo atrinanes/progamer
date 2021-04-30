@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+   
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+		<p:messages id="messages"><p:autoUpdate /></p:messages>
+
+		<h:form>
+		<p:card class="card-form">
+		    <f:facet name="title">
+		        Cadastro Usuário
+		    </f:facet>
+		   
+				<h:panelGrid columns="2">
+					<p:outputLabel for="name" value="Name"/>
+					<p:inputText id="name" value="#{usuarioBean.usuario.name}" required="true" >
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					<p:outputLabel for="nascimento" value="Data de nascimento"/>
+					<p:inputMask id="nascimento" value="#{usuarioBean.usuario.nascimento}" pattern="dd/MM/yyyy" mask="99/99/9999"  validatorMessage="Preencha data com: dd mm aaaa" >
+						<f:validateDoubleRange minimum="00000000" />
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="#{initParam.timezone}" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputMask >
+					
+					<p:outputLabel for="email" value="Email"/>
+					<p:inputText id="email" value="#{usuarioBean.usuario.email}" converterMessage="E-mail">
+						<f:validateLength minimum="6"/>
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					
+					<p:outputLabel for="senha" value="Senha"/>
+					<p:inputText id="senha" value="#{usuarioBean.usuario.senha}" converterMessage="A senha deve conter pelo menos 6 caracteres">
+						<f:validateLength minimum="6"/>
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+					
+					
+				</h:panelGrid>
+			
+			
+		    <f:facet name="footer">
+		        <p:commandButton icon="pi pi-check" value="Save" action="#{usuarioBean.save}">
+		        	<p:ajax execute="@form" update="table-usuarios" />
+		        </p:commandButton>
+		        <p:commandButton icon="pi pi-times" value="Cancel" styleClass="ui-button-secondary" style="margin-left: .5em"/>
+		    </f:facet>
+		</p:card>
+		</h:form>
+		
+		<h:form id="table-usuarios" >
+		    <div class="card">
+		        <p:dataTable var="usuario" value="#{usuarioBean.usuarios}">
+		            <p:column headerText="Name">
+		                <h:outputText value="#{usuario.name}" />
+		            </p:column>
+		            <p:column headerText="Nascimento">
+		                <h:outputText value="#{usuario.nascimento}" />
+		            </p:column>
+		             <p:column headerText="E-mail">
+		                <h:outputText value="#{usuario.email}" />
+		            </p:column>
+		             <p:column headerText="Senha">
+		                <h:outputText value="#{usuario.senha}" />
+		            </p:column>
+		        </p:dataTable>
+		    </div>
+		</h:form>
+		
+		
+	</ui:define>
+		
+</ui:composition>
+
+</html>

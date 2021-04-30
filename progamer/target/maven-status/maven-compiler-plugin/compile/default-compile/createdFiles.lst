@@ -1,0 +1,8 @@
+br\com\fiap\bean\IndexBean.class
+br\com\fiap\dao\UsuarioDao.class
+br\com\fiap\bean\SetupBean.class
+br\com\fiap\utils\JPAUtil.class
+br\com\fiap\model\Setup.class
+br\com\fiap\bean\UsuarioBean.class
+br\com\fiap\dao\SetupDao.class
+br\com\fiap\model\Usuario.class
